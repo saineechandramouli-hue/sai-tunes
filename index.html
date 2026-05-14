@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sai Tunes</title>
+    <link rel="icon" href="file:///C:/Users/Dell/Downloads/HD%20SAI.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <img src="https://res.cloudinary.com/dxwdhwacd/image/upload/v1778763177/Co_JEQZUsAAcusM_ek8q0t.jpg" alt="Logo" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; box-shadow: 0 2px 5px rgba(0,0,0,0.5);">
+                <span>Sai Tunes</span>
+            </div>
+            <ul class="nav-links">
+                <li class="nav-item active" data-target="home"><i class="fas fa-home"></i> <span>Home</span></li>
+                <li class="nav-item" data-target="search"><i class="fas fa-search"></i> <span>Search</span></li>
+                <li class="nav-item" data-target="library"><i class="fas fa-book-open"></i> <span>Your Playlists</span></li>
+            </ul>
+            <div class="sidebar-actions">
+                <div class="action-item" id="create-playlist-btn">
+                    <div class="icon-box add"><i class="fas fa-plus"></i></div> 
+                    <span>Create Playlist</span>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div class="playlists-header">YOUR PLAYLISTS</div>
+            <ul class="playlists" id="sidebar-playlists">
+                <!-- User playlists will be injected here -->
+            </ul>
+        </div>
+
+        <!-- Main View -->
+        <div class="main-view">
+            <header class="top-bar">
+                <div class="nav-arrows">
+                    <button class="nav-btn hidden-mobile" id="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+                    <button class="nav-btn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="nav-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                
+                <div class="search-container hidden" id="top-search-bar">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="search-input" placeholder="What do you want to listen to?">
+                </div>
+
+                <div class="theme-actions">
+                    <button class="theme-btn" id="open-theme-btn"><i class="fas fa-palette"></i> Theme</button>
+                    <div class="profile-icon">
+                        <img src="https://res.cloudinary.com/dxwdhwacd/image/upload/v1778763177/Co_JEQZUsAAcusM_ek8q0t.jpg" alt="Profile">
+                    </div>
+                </div>
+            </header>
+            
+            <div class="content-container">
+                
+                <!-- HOME VIEW -->
+                <div id="view-home" class="view-section active">
+                    <div class="playlist-header glass-panel">
+                        <div class="playlist-cover">
+                            <img src="https://res.cloudinary.com/dxwdhwacd/image/upload/v1778763177/Co_JEQZUsAAcusM_ek8q0t.jpg" alt="Sai Baba" class="cover-img">
+                        </div>
+                        <div class="playlist-info">
+                            <span class="type">Main Collection</span>
+                            <h1 class="title">All Sai Bhajans</h1>
+                            <p class="description">Your complete collection of beautiful tunes.</p>
+                            <div class="meta">
+                                <i class="fas fa-om brand-text"></i> <b>Sai Tunes</b> • <span id="home-song-count">0</span> songs
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="playlist-controls">
+                        <button class="play-all-btn main-play-action"><i class="fas fa-play"></i></button>
+                    </div>
+
+                    <div class="recently-played-section hidden" id="recently-played-section" style="margin-bottom: 32px;">
+                        <h2 class="section-title" style="font-size: 20px; margin-bottom: 16px;">Recently Played</h2>
+                        <div class="songs-list">
+                            <div class="songs-container" id="recent-songs-container">
+                                <!-- Recent songs injected by JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="songs-list">
+                        <div class="songs-header">
+                            <div class="col col-num">#</div>
+                            <div class="col col-title">Title</div>
+                            <div class="col col-album">Album</div>
+                            <div class="col col-actions"></div>
+                            <div class="col col-duration"><i class="far fa-clock"></i></div>
+                        </div>
+                        <div class="songs-container" id="home-songs-container">
+                            <!-- Songs injected by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SEARCH VIEW -->
+                <div id="view-search" class="view-section hidden">
+                    <h2 class="section-title">Search Results</h2>
+                    <div id="search-empty-state" class="empty-state">
+                        <i class="fas fa-search"></i>
+                        <p>Type above to search for songs or artists.</p>
+                    </div>
+                    <div class="songs-list hidden" id="search-results-list">
+                        <div class="songs-header">
+                            <div class="col col-num">#</div>
+                            <div class="col col-title">Title</div>
+                            <div class="col col-album">Album</div>
+                            <div class="col col-actions"></div>
+                            <div class="col col-duration"><i class="far fa-clock"></i></div>
+                        </div>
+                        <div class="songs-container" id="search-songs-container">
+                            <!-- Search results injected by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LIBRARY VIEW -->
+                <div id="view-library" class="view-section hidden">
+                    <h2 class="section-title">Your Playlists</h2>
+                    <div id="library-empty-state" class="empty-state">
+                        <i class="fas fa-compact-disc"></i>
+                        <p>You haven't created any playlists yet.</p>
+                        <button class="brand-btn" onclick="document.getElementById('create-playlist-btn').click()">Create Playlist</button>
+                    </div>
+                    <div class="playlists-grid" id="library-playlists-grid">
+                        <!-- Playlists injected by JS -->
+                    </div>
+                </div>
+
+                <!-- SINGLE PLAYLIST VIEW -->
+                <div id="view-playlist" class="view-section hidden">
+                    <div class="playlist-header glass-panel">
+                        <div class="playlist-cover custom-gradient">
+                            <img src="https://res.cloudinary.com/dxwdhwacd/image/upload/v1778763177/Co_JEQZUsAAcusM_ek8q0t.jpg" alt="Sai Baba" class="cover-img" style="border-radius: 8px;">
+                        </div>
+                        <div class="playlist-info">
+                            <span class="type">Playlist</span>
+                            <h1 class="title" id="custom-playlist-title">Playlist Name</h1>
+                            <p class="description">Created by You</p>
+                            <div class="meta">
+                                <span id="custom-playlist-count">0</span> songs
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="playlist-controls">
+                        <button class="play-all-btn main-play-action" id="custom-playlist-play-btn"><i class="fas fa-play"></i></button>
+                        <button class="icon-btn" id="delete-playlist-btn" title="Delete Playlist"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+
+                    <div class="songs-list">
+                        <div class="songs-header">
+                            <div class="col col-num">#</div>
+                            <div class="col col-title">Title</div>
+                            <div class="col col-album">Album</div>
+                            <div class="col col-actions"></div>
+                            <div class="col col-duration"><i class="far fa-clock"></i></div>
+                        </div>
+                        <div class="songs-container" id="custom-playlist-songs-container">
+                            <!-- Playlist songs injected by JS -->
+                        </div>
+                        <div id="playlist-empty-state" class="empty-state hidden">
+                            <p>This playlist is empty. Go to Home or Search to add songs!</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Now Playing Bar -->
+        <div class="now-playing-bar glass-panel-bottom">
+            <div class="now-playing-left">
+                <div class="track-info" id="track-info">
+                    <div class="track-cover" id="current-cover">
+                        <img src="https://res.cloudinary.com/dxwdhwacd/image/upload/v1778763177/Co_JEQZUsAAcusM_ek8q0t.jpg" alt="Cover" class="cover-img">
+                    </div>
+                    <div class="track-details">
+                        <div class="track-name" id="current-title">Select a song</div>
+                        <div class="track-artist" id="current-artist">--</div>
+                    </div>
+                    <button class="icon-btn small" id="like-btn" title="Save to Your Library"><i class="far fa-heart"></i></button>
+                </div>
+            </div>
+
+            <div class="now-playing-center">
+                <div class="player-controls">
+                    <button class="control-btn" id="backward-10-btn" title="Rewind 10s"><i class="fas fa-backward"></i></button>
+                    <button class="control-btn" id="prev-btn" title="Previous Song"><i class="fas fa-step-backward"></i></button>
+                    <button class="control-btn play-pause" id="play-pause-btn" title="Play/Pause"><i class="fas fa-play"></i></button>
+                    <button class="control-btn" id="next-btn" title="Next Song"><i class="fas fa-step-forward"></i></button>
+                    <button class="control-btn" id="forward-10-btn" title="Forward 10s"><i class="fas fa-forward"></i></button>
+                </div>
+                <div class="playback-bar">
+                    <span class="time" id="current-time">0:00</span>
+                    <div class="progress-container" id="progress-container">
+                        <div class="progress-bar" id="progress-bar"></div>
+                    </div>
+                    <span class="time" id="total-time">0:00</span>
+                </div>
+            </div>
+
+            <div class="now-playing-right">
+                <div class="volume-controls">
+                    <i class="fas fa-volume-up icon-btn small" id="volume-icon"></i>
+                    <div class="volume-slider-container" id="volume-container">
+                        <div class="volume-bar" id="volume-bar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal-overlay hidden" id="create-playlist-modal">
+        <div class="modal-content glass-panel">
+            <h2>Create Playlist</h2>
+            <input type="text" id="new-playlist-name" placeholder="My Awesome Playlist">
+            <div class="modal-actions">
+                <button class="btn-cancel" id="cancel-create-btn">Cancel</button>
+                <button class="btn-confirm brand-bg" id="confirm-create-btn">Create</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay hidden" id="add-to-playlist-modal">
+        <div class="modal-content glass-panel">
+            <h2>Add to Playlist</h2>
+            <p id="add-song-title-display">Song Title</p>
+            <ul class="modal-playlist-list" id="modal-playlist-list">
+                <!-- Playlists injected here -->
+            </ul>
+            <div class="modal-actions">
+                <button class="btn-cancel" id="cancel-add-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay hidden" id="theme-modal">
+        <div class="modal-content glass-panel">
+            <h2>Choose Your Mood</h2>
+            <p style="margin-bottom: 20px; color: var(--text-subdued);">Select a background color theme.</p>
+            <div class="theme-grid" id="theme-grid">
+                <div class="theme-option" data-theme="purple" style="background: linear-gradient(135deg, #0f0c20, #2a2452);">Deep Purple</div>
+                <div class="theme-option" data-theme="ocean" style="background: linear-gradient(135deg, #001f3f, #0074D9);">Ocean Blue</div>
+                <div class="theme-option" data-theme="forest" style="background: linear-gradient(135deg, #001a00, #2ECC40);">Forest Green</div>
+                <div class="theme-option" data-theme="sunset" style="background: linear-gradient(135deg, #3a0e04, #FF851B);">Sunset Orange</div>
+                <div class="theme-option" data-theme="dark" style="background: linear-gradient(135deg, #111, #333);">Midnight Dark</div>
+            </div>
+            <div class="modal-actions" style="margin-top: 20px;">
+                <button class="btn-cancel" id="close-theme-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Element -->
+    <audio id="audio-player"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
